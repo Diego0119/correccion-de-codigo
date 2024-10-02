@@ -160,19 +160,40 @@ $(document).ready(function () {
         "next": "Siguiente",
         "previous": "Anterior"
       }
+    },
+    "createdRow": function (row, data, index) {
+      if (data[6] == 'Reprobado') {
+        $('td', row).css({
+          'background-color': '#ffb6af',
+
+          'color': 'black'
+
+        });
+      }
+
     }
   });
 });
 
 
 
-function alertaEliminar() {
+function eliminar() {
   var mensaje;
   var opcion = confirm("¿Desea eliminar el registro?");
   if (opcion == true) {
-    return true;
+      return true;
   } else {
-    return false;
+      return false;
+  }
+}
+
+function eliminarNotas() {
+  var mensaje;
+  var opcion = confirm("¿Desea las notas del estudiante?");
+  if (opcion == true) {
+      return true;
+  } else {
+      return false;
   }
 }
 
@@ -184,3 +205,12 @@ function openEditModal(rut, nombre, nota1, nota2, nota3) {
   document.getElementById('nota2').value = nota2;
   document.getElementById('nota3').value = nota3;
 }
+
+setTimeout(function() {
+  const alert = document.querySelector('.custom-alert');
+  if (alert) {
+      alert.classList.remove('show'); 
+      alert.classList.add('fade'); 
+      setTimeout(() => alert.remove(), 500);
+  }
+}, 3000); // Tiempo en milisegundos antes de cerrar la alerta

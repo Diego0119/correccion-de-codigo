@@ -435,3 +435,12 @@ h6 {
 .nopadding {
   padding: 5px 10px;
 }
+
+.custom-alert {
+  position: fixed; 
+  bottom: 20px; 
+  left: 85%; 
+  transform: translateX(-50%); 
+  width: 20%; 
+  z-index: 1050; 
+}

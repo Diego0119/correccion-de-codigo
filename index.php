@@ -22,7 +22,6 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <!-- Contenido del formulario para agregar estudiante -->
             <form>
               <div class="mb-3">
                 <label for="studentName" class="form-label">Nombre del estudiante</label>
@@ -64,10 +63,8 @@
 
     <table id="tabla" class="table table-bordered " cellspacing="0" width="100%">
       <thead>
-        <!-- Secciones o cabeceros -->
         <tr>
-          <!-- filas -->
-          <th>Número</th> <!-- ENcabezados de las tablas-->
+          <th>Número</th> 
           <th>Nombre</th>
           <th>Correo</th>
           <th>Estado</th>
