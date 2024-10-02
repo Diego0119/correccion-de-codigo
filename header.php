@@ -37,9 +37,7 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-                <li class="nav-item dropdown pe-3">
-                    This is a test
-                </li><!-- End Messages Nav -->
+
 
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -82,11 +80,11 @@
                 <h6 class="text-center">Cristian Márquez</h6>
             </div>
             <hr>
-            <a class="nav-link collapsed" href="pages-blank.html">
+            <a class="nav-link collapsed" href="index.php">
                 <i class="bi bi-file-earmark"></i>
                 <span>Estudiantes</span>
             </a>
-            <a class="nav-link collapsed" href="pages-blank.html">
+            <a class="nav-link collapsed" href="notas.php">
                 <i class="bi bi-file-earmark"></i>
                 <span>Notas</span>
             </a>

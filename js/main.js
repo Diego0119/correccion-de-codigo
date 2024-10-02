@@ -112,9 +112,8 @@
 
 
 })();
-
-
 $(document).ready(function () {
+  // Inicializar la primera tabla
   $('#tabla').DataTable({
     responsive: true,
     language: {
@@ -132,14 +131,39 @@ $(document).ready(function () {
       "zeroRecords": "Sin resultados encontrados",
       "paginate": {
         "first": "Primero",
-        "last": "Ultimo",
+        "last": "Último",
         "next": "Siguiente",
         "previous": "Anterior"
       }
     }
+  });
 
+  // Inicializar la segunda tabla
+  $('#tablaNotas').DataTable({
+    responsive: true,
+    language: {
+      "decimal": "",
+      "emptyTable": "No hay información",
+      "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+      "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+      "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+      "infoPostFix": "",
+      "thousands": ",",
+      "lengthMenu": "Mostrar _MENU_ Entradas",
+      "loadingRecords": "Cargando...",
+      "processing": "Procesando...",
+      "search": "Buscar:",
+      "zeroRecords": "Sin resultados encontrados",
+      "paginate": {
+        "first": "Primero",
+        "last": "Último",
+        "next": "Siguiente",
+        "previous": "Anterior"
+      }
+    }
   });
 });
+
 
 
 function alertaEliminar() {
@@ -150,4 +174,13 @@ function alertaEliminar() {
   } else {
     return false;
   }
+}
+
+// Cargar el modal con los datos del estudiante al hacer clic en el botón
+function openEditModal(rut, nombre, nota1, nota2, nota3) {
+  document.getElementById('rut').value = rut;
+  document.getElementById('studentName').value = nombre;
+  document.getElementById('nota1').value = nota1;
+  document.getElementById('nota2').value = nota2;
+  document.getElementById('nota3').value = nota3;
 }
