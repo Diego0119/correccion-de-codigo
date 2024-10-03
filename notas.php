@@ -1,81 +1,82 @@
 <?php include("header.php");
-session_start(); // Iniciar la sesión ?>
+session_start(); // Iniciar la sesión 
+?>
 
 
 
 
 <main id="main" class="main">
     <section class="section dashboard ">
-    <div class="container mt-4">
-        <?php
-        // Verificar si hay un mensaje de sesión
-        if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-            echo '<div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">'
-                . htmlspecialchars($_SESSION['message']) . // Escapar el mensaje para evitar problemas de seguridad
-                '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="container mt-4">
+            <?php
+            // Verificar si hay un mensaje de sesión
+            if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
+                echo '<div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">'
+                    . htmlspecialchars($_SESSION['message']) . // Escapar el mensaje para evitar problemas de seguridad
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>';
-            unset($_SESSION['message']); // Limpiar el mensaje después de mostrarlo
-        }
-        ?>
+                unset($_SESSION['message']); // Limpiar el mensaje después de mostrarlo
+            }
+            ?>
 
 
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 class="mb-0">Resumen de notas </h2>
-        </div>
-       
-        <div class="alert alert-primary nopadding mt-2 mb-3" role="alert"><i class="bi bi-gear-fill"> Herramientas de programación</i></div>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">Resumen de notas </h2>
+            </div>
 
-        <table id="tablaNotas" class="table table-bordered " cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>Rut</th>
-                    <th>Nombre</th>
-                    <th>Nota 1</th>
-                    <th>Nota 2</th>
-                    <th>Nota 3</th>
-                    <th>Promedio</th>
-                    <th>Recuperación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
+            <div class="alert alert-primary nopadding mt-2 mb-3" role="alert"><i class="bi bi-gear-fill"> Herramientas de programación</i></div>
 
-                <?php
+            <table id="tablaNotas" class="table table-bordered " cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Rut</th>
+                        <th>Nombre</th>
+                        <th>Nota 1</th>
+                        <th>Nota 2</th>
+                        <th>Nota 3</th>
+                        <th>Promedio</th>
+                        <th>Recuperación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                // Abrir archivos
-                $archivo_estudiantes = fopen("estudiantes.txt", "r");
-                $archivo_notas = file("notas.txt");
+                    <?php
 
-                if ($archivo_estudiantes) {
-                    while (($linea_estudiante = fgets($archivo_estudiantes)) !== false) {
-                        $datos_estudiante = explode("|", $linea_estudiante); // Separar los datos por el delimitador '|'
-                        $rut = trim($datos_estudiante[0]);  // Eliminar espacios en blanco y asignar los valores de RUT 
-                        $nombre = trim($datos_estudiante[1]);  // Eliminar espacios en blanco
-                        $nota1 = $nota2 = $nota3 = "N/A"; // Default a "N/A" si no se encuentran notas
+                    // Abrir archivos
+                    $archivo_estudiantes = fopen("estudiantes.txt", "r");
+                    $archivo_notas = file("notas.txt");
 
-                        // Buscar las notas correspondientes al RUT en notas.txt
-                        foreach ($archivo_notas as $linea_nota) {
-                            $datos_nota = explode("|", trim($linea_nota));
-                            if ($datos_nota[0] == $rut) {
-                                $nota1 = $datos_nota[1];
-                                $nota2 = $datos_nota[2];
-                                $nota3 = $datos_nota[3];
-                                break; // Terminar la búsqueda una vez que se encuentran las notas
+                    if ($archivo_estudiantes) {
+                        while (($linea_estudiante = fgets($archivo_estudiantes)) !== false) {
+                            $datos_estudiante = explode("|", $linea_estudiante); // Separar los datos por el delimitador '|'
+                            $rut = trim($datos_estudiante[0]);  // Eliminar espacios en blanco y asignar los valores de RUT 
+                            $nombre = trim($datos_estudiante[1]);  // Eliminar espacios en blanco
+                            $nota1 = $nota2 = $nota3 = "N/A"; // Default a "N/A" si no se encuentran notas
+
+                            // Buscar las notas correspondientes al RUT en notas.txt
+                            foreach ($archivo_notas as $linea_nota) {
+                                $datos_nota = explode("|", trim($linea_nota));
+                                if ($datos_nota[0] == $rut) {
+                                    $nota1 = $datos_nota[1];
+                                    $nota2 = $datos_nota[2];
+                                    $nota3 = $datos_nota[3];
+                                    break; // Terminar la búsqueda una vez que se encuentran las notas
+                                }
                             }
-                        }
 
-                        // Calcular el promedio de las notas si todas están disponibles
-                        if ($nota1 !== "Pendiente" && $nota2 !== "Pendiente" && $nota3 !== "Pendiente") {
-                            $promedio = ($nota1 + $nota2 + $nota3) / 3;
-                            $promedio = number_format($promedio, 2, '.', '');
-                            $estado = ($promedio < 4) ? "Reprobado" : "Aprobado"; // Condición para verificar si está reprobado
-                        } else {
-                            $promedio = "Pendiente";
-                            $estado = "Pendiente";
-                        }
+                            // Calcular el promedio de las notas si todas están disponibles
+                            if ($nota1 !== "Pendiente" && $nota2 !== "Pendiente" && $nota3 !== "Pendiente") {
+                                $promedio = ($nota1 + $nota2 + $nota3) / 3;
+                                $promedio = number_format($promedio, 2, '.', '');
+                                $estado = ($promedio < 4) ? "Reprobado" : "Aprobado"; // Condición para verificar si está reprobado
+                            } else {
+                                $promedio = "Pendiente";
+                                $estado = "Pendiente";
+                            }
 
-                        // Generar las filas de la tabla con los datos recuperados
-                        echo "<tr>
+                            // Generar las filas de la tabla con los datos recuperados
+                            echo "<tr>
                                     <td>$rut</td>
                                     <td>$nombre</td>
                                     <td>$nota1</td>
@@ -95,14 +96,14 @@ session_start(); // Iniciar la sesión ?>
                                         </abbr>
                                     </td>
                                   </tr>";
+                        }
+                        fclose($archivo_estudiantes);
+                    } else {
+                        echo "No se pudo abrir el archivo estudiantes.txt.";
                     }
-                    fclose($archivo_estudiantes);
-                } else {
-                    echo "No se pudo abrir el archivo estudiantes.txt.";
-                }
-                ?>
-            </tbody>
-        </table>
+                    ?>
+                </tbody>
+            </table>
     </section>
 </main><!-- End #main -->
 
@@ -117,25 +118,41 @@ session_start(); // Iniciar la sesión ?>
             </div>
             <div class="modal-body">
                 <form method="post" action="editarNotas.php">
+
                     <div class="mb-3">
                         <label for="studentRut" class="form-label">RUT del estudiante</label>
-                        <input type="text" class="form-control" id="rut" name="rut" value="" readonly>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                            <input type="text" class="form-control" id="rut" name="rut" value="" readonly>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="studentName" class="form-label">Nombre del estudiante</label>
-                        <input type="text" class="form-control" id="studentName" name="studentName" value="" readonly>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" class="form-control" id="studentName" name="studentName" value="" readonly>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="nota1" class="form-label">Nota 1</label>
-                        <input type="number" class="form-control" id="nota1" name="nota1" min="1" max="7" step="0.1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-award"></i></span>
+                            <input type="number" class="form-control" id="nota1" name="nota1" min="1" max="7" step="0.1">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="nota2" class="form-label">Nota 2</label>
-                        <input type="number" class="form-control" id="nota2" name="nota2" min="1" max="7" step="0.1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-award"></i></span>
+                            <input type="number" class="form-control" id="nota2" name="nota2" min="1" max="7" step="0.1">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="nota3" class="form-label">Nota 3</label>
-                        <input type="number" class="form-control" id="nota3" name="nota3" min="1" max="7" step="0.1">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-award"></i></span>
+                            <input type="number" class="form-control" id="nota3" name="nota3" min="1" max="7" step="0.1">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
