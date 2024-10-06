@@ -189,7 +189,7 @@ function eliminar() {
 
 function eliminarNotas() {
   var mensaje;
-  var opcion = confirm("¿Desea las notas del estudiante?");
+  var opcion = confirm("¿Desea eliminar las notas del estudiante?");
   if (opcion == true) {
       return true;
   } else {

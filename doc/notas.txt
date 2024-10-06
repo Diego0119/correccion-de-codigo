@@ -1,2 +1,2 @@
-6702b7cc47d9f|6702b7cc47d9a|Pendiente|Pendiente|Pendiente
-6702b7e098e41|6702b7e098e3e|5|Pendiente|Pendiente
+6702b7cc47d9f|6702b7cc47d9a|5|Pendiente|Pendiente
+6702b7e098e41|6702b7e098e3e|Pendiente|Pendiente|Pendiente
