@@ -9,7 +9,7 @@
     </div>
     <div class="alert alert-primary nopadding mt-2 mb-3" role="alert"><i class="bi bi-gear-fill"> Herramientas de programación</i></div>
 
-    <!-- Modal -->
+
     <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -19,7 +19,6 @@
           </div>
           <div class="modal-body">
             <form method="post" action="">
-              <!-- Formulario modificado -->
               <div class="mb-3">
                 <label for="rut" class="form-label">Rut del estudiante</label>
                 <div class="input-group">
@@ -68,15 +67,19 @@
     <!-- Procesar el formulario con PHP -->
     <?php
     if (isset($_POST['submit'])) {
+      $idEstudiante = uniqid();
       $rut = $_POST['rut'];
       $nombre = $_POST['nombre'];
-      $fecha_nacimiento = $_POST['fecha_nacimiento'];
+      $fechaNacimiento = $_POST['fecha_nacimiento'];
       $direccion = $_POST['direccion'];
-      $num_apoderado = $_POST['num_apoderado'];
+      $numApoderado = $_POST['num_apoderado'];
+      $idCalificaciones  = uniqid();
 
-      $datos = $rut . '|' . $nombre . '|' . $fecha_nacimiento . '|' . $direccion . '|' . $num_apoderado . PHP_EOL;
+      $datos = $idEstudiante. '|' . $rut . '|' . $nombre . '|' . $fechaNacimiento . '|' . $direccion . '|' . $numApoderado . '|' . "Activo" . PHP_EOL;
+      $datosCalificaciones = $idCalificaciones. '|' . $idEstudiante. '|' ."Pendiente" . '|' ."Pendiente". '|' ."Pendiente". PHP_EOL;
+      file_put_contents('doc/estudiantes.txt', $datos, FILE_APPEND);
+      file_put_contents('doc/notas.txt', $datosCalificaciones, FILE_APPEND);
 
-      file_put_contents('estudiantes.txt', $datos, FILE_APPEND);
 
       echo "<div class='alert alert-success mt-3'>Estudiante agregado exitosamente</div>";
     }
@@ -90,13 +93,14 @@
           <th>Fecha Nac.</th>
           <th>Dirección</th>
           <th>Número de apoderado</th>
+          <th>Estado</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <?php
         // Leer el archivo estudiantes.txt
-        $filename = 'estudiantes.txt';
+        $filename = 'doc/estudiantes.txt';
         if (file_exists($filename)) {
           $file = fopen($filename, 'r');
 
@@ -107,26 +111,28 @@
 
             // Asegurarse de que hay suficientes datos en la línea
             if (count($data) >= 5) {
-              $rut = htmlspecialchars($data[0]);
-              $nombre = htmlspecialchars($data[1]);
-              $direccion = htmlspecialchars($data[2]);  
-              $fechNac = htmlspecialchars($data[3]);
-              $num = htmlspecialchars($data[4]);
+              $rut = htmlspecialchars($data[1]);
+              $nombre = htmlspecialchars($data[2]);
+              $direccion = htmlspecialchars($data[3]);
+              $fechNac = htmlspecialchars($data[4]);
+              $num = htmlspecialchars($data[5]);
+              $estado = htmlspecialchars($data[6]);
 
               echo '<tr>';
               echo '<td>' . $rut . '</td>';
               echo '<td>' . $nombre . '</td>';
               echo '<td>' . $direccion . '</td>';
-              echo '<td>' . $fechNac. '</td>';
-              echo '<td>' . $num. '</td>';
+              echo '<td>' . $fechNac . '</td>';
+              echo '<td>' . $num . '</td>';
+              echo '<td>' . $estado . '</td>';
               echo '<td>
-                              <center>
-                                <abbr title="Editar"><button type="button" class="btn btn-outline-dark"><i class="bi bi-pencil-square"></i></button></abbr>
-                                <abbr title="Eliminar"><a type="button" onclick="return alertaEliminar()" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></abbr>
-                              </center>
+                <center>
+                    <span class="botones"><button type="button" class="btn btn-outline-dark" title="Editar"><i class="bi bi-pencil-square"></i></button></span>
+                    <span class="botones"><a type="button" onclick="return alertaEliminar()" class="btn btn-outline-danger" title="Eliminar"><i class="bi bi-trash"></i></a></span>
+                </center>
+
                             </td>';
               echo '</tr>';
-
             }
           }
 
@@ -135,7 +141,7 @@
           echo '<tr><td colspan="5">No se encontró el archivo de estudiantes.</td></tr>';
         }
         ?>
-       
+
       </tbody>
     </table>
   </section>

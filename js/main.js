@@ -198,12 +198,13 @@ function eliminarNotas() {
 }
 
 // Cargar el modal con los datos del estudiante al hacer clic en el botón
-function openEditModal(rut, nombre, nota1, nota2, nota3) {
+function openEditModal(idEstudiante,rut, nombre, nota1, nota2, nota3) {
   document.getElementById('rut').value = rut;
   document.getElementById('studentName').value = nombre;
   document.getElementById('nota1').value = nota1;
   document.getElementById('nota2').value = nota2;
   document.getElementById('nota3').value = nota3;
+  document.getElementById('idEstudiante').value = idEstudiante;
 }
 
 setTimeout(function() {

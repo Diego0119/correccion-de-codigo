@@ -1,21 +1,18 @@
-<?php include("header.php");
-session_start(); // Iniciar la sesión 
+<?php include("../header.php");
+session_start();
 ?>
-
-
 
 
 <main id="main" class="main">
     <section class="section dashboard ">
         <div class="container mt-4">
             <?php
-            // Verificar si hay un mensaje de sesión
             if (isset($_SESSION['message']) && !empty($_SESSION['message'])) {
                 echo '<div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">'
-                    . htmlspecialchars($_SESSION['message']) . // Escapar el mensaje para evitar problemas de seguridad
+                    . htmlspecialchars($_SESSION['message']) .
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>';
-                unset($_SESSION['message']); // Limpiar el mensaje después de mostrarlo
+                unset($_SESSION['message']);
             }
             ?>
 
@@ -35,7 +32,7 @@ session_start(); // Iniciar la sesión
                         <th>Nota 2</th>
                         <th>Nota 3</th>
                         <th>Promedio</th>
-                        <th>Recuperación</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -44,23 +41,25 @@ session_start(); // Iniciar la sesión
                     <?php
 
                     // Abrir archivos
-                    $archivo_estudiantes = fopen("estudiantes.txt", "r");
-                    $archivo_notas = file("notas.txt");
+                    $archivo_estudiantes = fopen("../doc/estudiantes.txt", "r");
+                    $archivo_notas = file("../doc/notas.txt");
 
                     if ($archivo_estudiantes) {
                         while (($linea_estudiante = fgets($archivo_estudiantes)) !== false) {
                             $datos_estudiante = explode("|", $linea_estudiante); // Separar los datos por el delimitador '|'
-                            $rut = trim($datos_estudiante[0]);  // Eliminar espacios en blanco y asignar los valores de RUT 
-                            $nombre = trim($datos_estudiante[1]);  // Eliminar espacios en blanco
+                            $id = trim($datos_estudiante[0]);
+                            $rut = trim($datos_estudiante[1]);  // Eliminar espacios en blanco y asignar los valores de RUT 
+                            $nombre = trim($datos_estudiante[2]);  // Eliminar espacios en blanco
                             $nota1 = $nota2 = $nota3 = "N/A"; // Default a "N/A" si no se encuentran notas
 
-                            // Buscar las notas correspondientes al RUT en notas.txt
+                            // Buscar las notas correspondientes al id en notas.txt
                             foreach ($archivo_notas as $linea_nota) {
                                 $datos_nota = explode("|", trim($linea_nota));
-                                if ($datos_nota[0] == $rut) {
-                                    $nota1 = $datos_nota[1];
-                                    $nota2 = $datos_nota[2];
-                                    $nota3 = $datos_nota[3];
+                                if ($datos_nota[1] == $id) {
+                                    $idEstudiante =  $datos_nota[1];
+                                    $nota1 = $datos_nota[2];
+                                    $nota2 = $datos_nota[3];
+                                    $nota3 = $datos_nota[4];
                                     break; // Terminar la búsqueda una vez que se encuentran las notas
                                 }
                             }
@@ -85,15 +84,15 @@ session_start(); // Iniciar la sesión
                                     <td>$promedio</td>
                                     <td>$estado</td>
                                     <td>
-                                        <abbr title='Editar notas'>
-                                            <button type='button' class='btn btn-outline-dark' onclick=\"openEditModal('$rut', '$nombre','$nota1','$nota2','$nota3')\" data-bs-toggle='modal' data-bs-target='#editNotesModal'>
+                                        <span title='Editar notas'>
+                                            <button type='button' name='editar' id='editar' class='btn btn-outline-dark' onclick=\"openEditModal('$idEstudiante','$rut', '$nombre','$nota1','$nota2','$nota3')\" data-bs-toggle='modal' data-bs-target='#editNotesModal'>
                                                 <i class='bi bi-pencil-square'></i>
                                             </button>
-                                        </abbr>
-                                        <abbr title='Eliminar'>
-                                            <a type='button' onclick='return eliminarNotas()' href='eliminarNotas.php?rut=$rut' class='btn btn-outline-danger'><i class='bi bi-trash'></i>
+                                        </span>
+                                        <span title='Eliminar'> 
+                                            <a type='button' id='eliminarNotas' name='eliminarNotas' onclick='return eliminarNotas()' href='eliminarNotas.php?id=" . htmlspecialchars($id) . "' class='btn btn-outline-danger'><i class='bi bi-trash'></i>
                                             </a>
-                                        </abbr>
+                                        </span>
                                     </td>
                                   </tr>";
                         }
@@ -118,7 +117,7 @@ session_start(); // Iniciar la sesión
             </div>
             <div class="modal-body">
                 <form method="post" action="editarNotas.php">
-
+                    <input type="hidden" value="" name="idEstudiante" id="idEstudiante">
                     <div class="mb-3">
                         <label for="studentRut" class="form-label">RUT del estudiante</label>
                         <div class="input-group">
@@ -165,4 +164,4 @@ session_start(); // Iniciar la sesión
 </div>
 
 
-<?php include("footer.php"); ?>
+<?php include("../footer.php"); ?>
