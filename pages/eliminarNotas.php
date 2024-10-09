@@ -1,11 +1,10 @@
 <?php
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $archivoNotas = file("../doc/notas.txt");
+if (isset($_GET['id'])) { //Revisamos si se cuenta con el id
+    $id = $_GET['id']; //Recuperamos id
+    $archivoNotas = file("../doc/notas.txt"); //Obtenemos archivo
     $notasActualizadas = [];
     foreach ($archivoNotas as $linea) {     // Recorrer cada línea del archivo
         $datos = explode("|", trim($linea)); // Separar por el delimitador "|"
-
         if ($datos[1] == $id) { // Si se encuentra el registro con el id proporcionado
             $datos[2] = "Pendiente"; // Mantener el RUT, pero cambiar las notas a "Pendiente"
             $datos[3] = "Pendiente";
@@ -13,7 +12,7 @@ if (isset($_GET['id'])) {
         }
 
         $notasActualizadas[] = implode("|", $datos) . "\n"; // Reconstruir la línea modificada
-        file_put_contents("../doc/notas.txt", $notasActualizadas);
+        file_put_contents("../doc/notas.txt", $notasActualizadas); //Guardar cambios
     }
 
     session_start(); // Iniciar la sesión

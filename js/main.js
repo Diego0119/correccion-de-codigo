@@ -138,7 +138,7 @@ $(document).ready(function () {
     }
   });
 
-  // Inicializar la segunda tabla
+  // Inicializar tabla de notas
   $('#tablaNotas').DataTable({
     responsive: true,
     language: {
@@ -207,6 +207,8 @@ function openEditModal(idEstudiante,rut, nombre, nota1, nota2, nota3) {
   document.getElementById('idEstudiante').value = idEstudiante;
 }
 
+
+//Alertas (mensajes)
 setTimeout(function() {
   const alert = document.querySelector('.custom-alert');
   if (alert) {

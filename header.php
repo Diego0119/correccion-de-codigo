@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- INICIO head Exp1 -->
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -18,9 +20,10 @@
     <link href="/Notas/css/style.css" rel="stylesheet">
 
 </head>
+<!-- FIN head Exp1 -->
 
 <body>
-    <!-- ======= Header ======= -->
+    <!--INICIO  Header  Exp2 -->
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
@@ -28,26 +31,24 @@
                 <span class="d-none d-lg-block">EduScore</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
-        </div><!-- End Logo -->
-
+        </div>
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
                 <li class="nav-item  pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                         <img src="/Notas/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block  ps-2">Cristian Márquez</span>
-                    </a><!-- End Profile Iamge Icon -->
+                    </a>
                 </li>
-            </ul><!-- End Profile Dropdown Items -->
-        </nav><!-- End Icons Navigation -->
-    </header><!-- End Header -->
+            </ul>
+        </nav>
+    </header>
+    <!-- End Header Exp2 -->
 
-    <!-- ======= Sidebar ======= -->
+    <!-- INICIO Sidebar Exp3 -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <div class="text-center">
-
-                <hr>
                 <h5 class="text-center fw-bold">Herramientas de programación</h5>
                 <h6 class="text-center">Cristian Márquez</h6>
             </div>
@@ -61,4 +62,5 @@
                 <span>Notas</span>
             </a>
         </ul>
-    </aside><!-- End Sidebar-->
+    </aside>
+    <!-- FIN Sidebar Exp3-->

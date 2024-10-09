@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $idEstudiante = $_POST['idEstudiante'];
+    $idEstudiante = $_POST['idEstudiante']; //Recupera el id del estudiante mandado desde el botón
     // Verificar si cada nota está presente, de lo contrario asignar "Pendiente"
     $nota1 = isset($_POST['nota1']) && !empty($_POST['nota1']) ? floatval($_POST['nota1']) : "Pendiente";
     $nota2 = isset($_POST['nota2']) && !empty($_POST['nota2']) ? floatval($_POST['nota2']) : "Pendiente";
@@ -24,8 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     file_put_contents("../doc/notas.txt", implode("", $notas)); // Escribir las líneas actualizadas (o con el nuevo estudiante) de nuevo en el archivo
     session_start(); // Iniciar la sesión
     $_SESSION['message'] = "Notas asignadas"; // Almacenar el mensaje en la sesión
-    
-    header("Location: notas.php");
+    header("Location: notas.php"); //Redirigir a notas.php
     exit();
 }
 
