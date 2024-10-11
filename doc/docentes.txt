@@ -1,0 +1,3 @@
+5702b8e098e3a|3014110878|Ana López|2023-10-06|Calle 5 #101|987654321|alopez|456Contraseña|Español
+5702b8f12345b|4015120987|Carlos Martínez|2023-09-15|Avenida Siempre Viva #203|987654322|cmartinez|123Contraseña|Matemáticas
+5702b8g67890c|5016131098|Laura Gómez|2023-08-22|Calle Los Pinos #45|987654323|lgomez|789Contraseña|Historia

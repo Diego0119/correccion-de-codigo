@@ -5,7 +5,7 @@ if (isset($_GET['id'])) { //Revisamos si se cuenta con el id
     $notasActualizadas = [];
     foreach ($archivoNotas as $linea) {     // Recorrer cada línea del archivo
         $datos = explode("|", trim($linea)); // Separar por el delimitador "|"
-        if ($datos[1] == $id) { // Si se encuentra el registro con el id proporcionado
+        if ($datos[0] == $id) { // Si se encuentra el registro con el id proporcionado
             $datos[2] = "Pendiente"; // Mantener el RUT, pero cambiar las notas a "Pendiente"
             $datos[3] = "Pendiente";
             $datos[4] = "Pendiente";

@@ -1,3 +1,14 @@
+<?php
+session_start(); // Iniciar la sesión
+if (!isset($_SESSION['nombre'])) {
+    header("Location: /Notas/index.php");
+    exit();
+}
+$idUsuario = $_SESSION['idUsuario']; 
+$nombreUsuario = $_SESSION['nombre'];
+$tipoUsuario = $_SESSION['tipo'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,12 +45,12 @@
         </div>
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-                <li class="nav-item  pe-3">
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="/Notas/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block  ps-2">Cristian Márquez</span>
+                <li class="nav-item dropdown pe-3">
+                    <a class="dropdown-item d-flex align-items-center" href="/Notas/pages/logout.php">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
                     </a>
-                </li>
+                </li><!-- End Profile Nav -->
             </ul>
         </nav>
     </header>
@@ -49,18 +60,28 @@
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <div class="text-center">
-                <h5 class="text-center fw-bold">Herramientas de programación</h5>
-                <h6 class="text-center">Cristian Márquez</h6>
+                <h5 class="text-center fw-bold">Bienvenid@</h5>
+                <h6 class="text-center"> <?php echo $nombreUsuario; // Mostrar el nombre del usuario 
+                                            ?> </h6>
             </div>
             <hr>
-            <a class="nav-link collapsed" href="/Notas/index.php">
-                <i class="bi bi-people-fill"></i>
-                <span>Estudiantes</span>
-            </a>
-            <a class="nav-link collapsed" href="/Notas/pages/notas.php">
-                <i class="bi bi-clipboard-minus"></i>
-                <span>Notas</span>
-            </a>
+            <?php if ($tipoUsuario == "admin"): ?>
+                <a class="nav-link collapsed" href="/Notas/pages/estudiantes.php">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Estudiantes</span>
+                </a>
+            <?php elseif ($tipoUsuario == "docente"): ?>
+                <a class="nav-link collapsed" href="/Notas/pages/notas.php">
+                    <i class="bi bi-clipboard-minus"></i>
+                    <span>Notas</span>
+                </a>
+            <?php elseif ($tipoUsuario == "estudiante"): ?>
+                <a class="nav-link collapsed" href="/Notas/pages/misNotas.php">
+                    <i class="bi bi-book"></i>
+                    <span>Mis Notas</span>
+                </a>
+            <?php endif; ?>
+
         </ul>
     </aside>
     <!-- FIN Sidebar Exp3-->

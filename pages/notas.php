@@ -1,6 +1,4 @@
-<?php include("../header.php");
-session_start();
-?>
+<?php include("../header.php"); ?>
 
 <main id="main" class="main">
 
@@ -19,18 +17,38 @@ session_start();
             <!-- FIN Mensajes Exp5 -->
 
             <!-- INICIO Texto Exp6  -->
-            <div class="d-flex justify-content-between align-items-center">
-                <h2 class="mb-0">Resumen de notas </h2>
-            </div>
+            <h2 class="">Resumen de notas </h2>
+
+            <?php
+            // Abrir el archivo de docentes
+            $archivo_docentes = fopen("../doc/docentes.txt", "r");
+            if ($archivo_docentes) {
+                while (($linea = fgets($archivo_docentes)) !== false) {
+                    $datos_docente = explode("|", trim($linea));
+                    $idDocente = trim($datos_docente[0]); // ID del docente
+                    $materia = trim($datos_docente[8]); // Materia
+
+                    // Compara el ID del docente logueado con el ID del docente en el archivo
+                    if ($idDocente === $idUsuario) {
+                        $materiaDocente = $materia; // Asigna la materia encontrada
+                        break; // Termina la búsqueda
+                    }
+                }
+                fclose($archivo_docentes); // Cierra el archivo
+            }
+            ?>
+
+            <!-- Aquí se muestra la alerta con la materia -->
             <div class="alert alert-primary nopadding mt-2 mb-3" role="alert">
-                <i class="bi bi-gear-fill"> Herramientas de programación</i>
+                <i class="bi bi-gear-fill"></i> Materia: <?php echo htmlspecialchars($materiaDocente); ?>
             </div>
+
             <!-- FIN Texto Exp6  -->
 
             <!-- INICIO TablaNotas Exp7 -->
             <table id="tablaNotas" class="table table-bordered " cellspacing="0" width="100%">
                 <thead>
-                    <tr> <!--  encabezados de la tabla -->
+                    <tr> <!-- encabezados de la tabla -->
                         <th>Rut</th>
                         <th>Nombre</th>
                         <th>Nota 1</th>
@@ -42,76 +60,90 @@ session_start();
                     </tr>
                 </thead>
                 <tbody>
-
                     <?php
+                    // Obtener el ID del docente logueado
+                    $idUsuario = $_SESSION['idUsuario']; // Debes asegurarte de que este ID se guarda correctamente en la sesión
 
                     // Abrir archivos
                     $archivo_estudiantes = fopen("../doc/estudiantes.txt", "r");
                     $archivo_notas = file("../doc/notas.txt");
 
+                    if ($archivo_estudiantes === false) {
+                        die("Error al abrir el archivo de estudiantes.");
+                    }
+
                     if ($archivo_estudiantes) {
                         while (($linea_estudiante = fgets($archivo_estudiantes)) !== false) {
-                            $datos_estudiante = explode("|", $linea_estudiante); // Separar los datos por el delimitador '|'
-                            $id = trim($datos_estudiante[0]); //id
-                            $rut = trim($datos_estudiante[1]);  // Eliminar espacios en blanco y asignar los valores de RUT 
-                            $nombre = trim($datos_estudiante[2]);  // Eliminar espacios en blanco
-                            $nota1 = $nota2 = $nota3 = "N/A"; // Default a "N/A" si no se encuentran notas
+                            $datos_estudiante = explode("|", $linea_estudiante);
+                            $idEstudiante = trim($datos_estudiante[0]); // ID del estudiante
+                            $rut = trim($datos_estudiante[1]);  // RUT del estudiante
+                            $nombre = trim($datos_estudiante[2]);  // Nombre del estudiante
+                            $nota1 = $nota2 = $nota3 = "Pendiente"; // Valores por defecto
+                            $notaEncontrada = false; // Bandera para verificar si se encontró una nota
 
-                            // Buscar las notas correspondientes al id en notas.txt
+                            // Buscar las notas correspondientes al id del estudiante y verificar que el ID del docente coincide
                             foreach ($archivo_notas as $linea_nota) {
                                 $datos_nota = explode("|", trim($linea_nota));
-                                if ($datos_nota[1] == $id) {
-                                    $idEstudiante =  $datos_nota[1];
+
+                                // $datos_nota[1] es el ID del estudiante y $datos_nota[5] es el ID del docente
+                                if ($datos_nota[1] == $idEstudiante && $datos_nota[5] == $idUsuario) {
+                                    // Asigna las notas si coinciden el ID del estudiante y el del docente
+                                    $idNota = $datos_nota[0];
                                     $nota1 = $datos_nota[2];
                                     $nota2 = $datos_nota[3];
                                     $nota3 = $datos_nota[4];
-                                    break; // Terminar la búsqueda una vez que se encuentran las notas
+                                    $notaEncontrada = true; // Se encontró una nota
+                                    break; // Termina la búsqueda para este estudiante
                                 }
                             }
 
-                            // Calcular el promedio de las notas si todas están disponibles
-                            if ($nota1 !== "Pendiente" && $nota2 !== "Pendiente" && $nota3 !== "Pendiente") {
-                                $promedio = ($nota1 + $nota2 + $nota3) / 3;
-                                $promedio = number_format($promedio, 2, '.', '');
-                                $estado = ($promedio < 4) ? "Reprobado" : "Aprobado"; // Condición para verificar si está reprobado
-                            } else {
-                                $promedio = "Pendiente";
-                                $estado = "Pendiente";
-                            }
+                            // Solo mostrar el estudiante si tiene notas del docente actual
+                            if ($notaEncontrada) {
+                                // Calcular promedio solo si las tres notas son numéricas
+                                if (is_numeric($nota1) && is_numeric($nota2) && is_numeric($nota3)) {
+                                    $promedio = ($nota1 + $nota2 + $nota3) / 3;
+                                    $promedio = number_format($promedio, 2, '.', '');
+                                    $estado = ($promedio < 4) ? "Reprobado" : "Aprobado";
+                                } else {
+                                    $promedio = "Pendiente";
+                                    $estado = "Pendiente";
+                                }
 
-                            // Generar las filas de la tabla con los datos recuperados
-                            echo "<tr>
-                                    <td>$rut</td>
-                                    <td>$nombre</td>
-                                    <td>$nota1</td>
-                                    <td>$nota2</td>
-                                    <td>$nota3</td>
-                                    <td>$promedio</td>
-                                    <td>$estado</td>
-                                    <td>
-                                        <span title='Editar notas'> 
-                                            <button type='button' name='editar' id='editar' class='btn btn-outline-dark' onclick=\"openEditModal('$idEstudiante','$rut', '$nombre','$nota1','$nota2','$nota3')\" data-bs-toggle='modal' data-bs-target='#editNotesModal'>
-                                                <i class='bi bi-pencil-square'></i>
-                                            </button>
-                                        </span>
-                                        <span title='Eliminar'> 
-                                            <a type='button' id='eliminarNotas' name='eliminarNotas' onclick='return eliminarNotas()' href='eliminarNotas.php?id=" . htmlspecialchars($id) . "' class='btn btn-outline-danger'><i class='bi bi-trash'></i>
-                                            </a>
-                                        </span>
-                                    </td>
-                                  </tr>";
+                                // Generar la fila solo para estudiantes que pertenecen al docente logueado
+                                echo "<tr>
+                                        <td>$rut</td>
+                                        <td>$nombre</td>
+                                        <td>$nota1</td>
+                                        <td>$nota2</td>
+                                        <td>$nota3</td>
+                                        <td>$promedio</td>
+                                        <td>$estado</td>
+                                        <td>
+                                            <span title='Editar notas'> 
+                                                <button type='button' name='editar' id='editar' class='btn btn-outline-dark' onclick=\"openEditModal('$idEstudiante','$rut', '$nombre','$nota1','$nota2','$nota3','$idUsuario', '$idNota')\" data-bs-toggle='modal' data-bs-target='#editNotesModal'>
+                                                    <i class='bi bi-pencil-square'></i>
+                                                </button>
+                                            </span>
+                                            <span title='Eliminar'> 
+                                                <a type='button' id='eliminarNotas' name='eliminarNotas' onclick='return eliminarNotas()' href='eliminarNotas.php?id=" . htmlspecialchars($idNota) . "' class='btn btn-outline-danger'><i class='bi bi-trash'></i>
+                                                </a>
+                                            </span>
+                                        </td>
+                                     </tr>";
+                            }
                         }
-                        fclose($archivo_estudiantes); 
+                        fclose($archivo_estudiantes); // Cierra el archivo fuera del bucle
                     } else {
                         echo "No se pudo abrir el archivo";
                     }
                     ?>
+
                 </tbody>
             </table>
-            <!-- INICIO TablaNotas Exp7 -->
+            <!-- FIN TablaNotas Exp7 -->
+        </div>
     </section>
 </main>
-
 
 <!-- INICIO EditarNotas exp8 -->
 <div class="modal fade" id="editNotesModal" tabindex="-1" aria-labelledby="editNotesModalLabel" aria-hidden="true">
@@ -124,6 +156,8 @@ session_start();
             <div class="modal-body">
                 <form method="post" action="editarNotas.php">
                     <input type="hidden" value="" name="idEstudiante" id="idEstudiante">
+                    <input type="hidden" value="" name="idUsuario" id="idUsuario">
+                    <input type="hidden" value="" name="idNota" id="idNota">
                     <div class="mb-3">
                         <label for="studentRut" class="form-label">RUT del estudiante</label>
                         <div class="input-group">

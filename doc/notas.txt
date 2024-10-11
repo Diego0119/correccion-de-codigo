@@ -1,2 +1,4 @@
-6702b7cc47d9f|6702b7cc47d9a|5|Pendiente|Pendiente
-6702b7e098e41|6702b7e098e3e|Pendiente|Pendiente|Pendiente
+id notas|id estudiante|nota1|nota2|nota3|id docente
+6702b7cc47d9f|6702b7e098e3e|2|Pendiente|Pendiente|5702b8e098e3a
+670906c466a87|670906c466798|Pendiente|Pendiente|Pendiente|5702b8e098e3a
+670906c466bb8|670906c466798|Pendiente|Pendiente|Pendiente|5702b8f12345b
