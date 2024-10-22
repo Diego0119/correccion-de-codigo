@@ -181,9 +181,9 @@ function eliminar() {
   var mensaje;
   var opcion = confirm("¿Desea eliminar el registro?");
   if (opcion == true) {
-      return true;
+    return true;
   } else {
-      return false;
+    return false;
   }
 }
 
@@ -191,76 +191,102 @@ function eliminarNotas() {
   var mensaje;
   var opcion = confirm("¿Desea eliminar las notas del estudiante?");
   if (opcion == true) {
-      return true;
+    return true;
   } else {
-      return false;
+    return false;
   }
 }
 
 // Cargar el modal con los datos del estudiante al hacer clic en el botón
-function openEditModal(idEstudiante,rut, nombre, nota1, nota2, nota3, idUsuario,idNota) {
+function openEditModal(idEstudiante, rut, nombre, nota1, nota2, nota3, idUsuario, idNota) {
   document.getElementById('rut').value = rut;
   document.getElementById('studentName').value = nombre;
   document.getElementById('nota1').value = nota1;
   document.getElementById('nota2').value = nota2;
   document.getElementById('nota3').value = nota3;
   document.getElementById('idEstudiante').value = idEstudiante;
-  document.getElementById('idUsuario').value = idUsuario; 
-  document.getElementById('idNota').value = idNota; 
+  document.getElementById('idUsuario').value = idUsuario;
+  document.getElementById('idNota').value = idNota;
 }
 
 
 //Alertas (mensajes)
-setTimeout(function() {
+setTimeout(function () {
   const alert = document.querySelector('.custom-alert');
   if (alert) {
-      alert.classList.remove('show'); 
-      alert.classList.add('fade'); 
-      setTimeout(() => alert.remove(), 500);
+    alert.classList.remove('show');
+    alert.classList.add('fade');
+    setTimeout(() => alert.remove(), 500);
   }
 }, 3000); // Tiempo en milisegundos antes de cerrar la alerta
 
 
 //Validaciones para inputs
- // Eliminar puntos y guiones del RUT
- const rutInput = document.getElementById('rut');
- rutInput.addEventListener('input', function () {
-   this.value = this.value.replace(/[.-]/g, '');
- });
+// Eliminar puntos y guiones del RUT
+const rutInput = document.getElementById('rut');
+rutInput.addEventListener('input', function () {
+  this.value = this.value.replace(/[.-]/g, '');
+});
 
- // Validar el número de apoderado
- const numeroApoderadoInput = document.getElementById('num_apoderado');
- numeroApoderadoInput.addEventListener('input', function () {
-   const valor = this.value;
-   // Solo permite 9 dígitos y que el primero sea 9
-   if (!/^9\d{0,8}$/.test(valor)) {
-     this.value = valor.slice(0, -1); // Elimina el último carácter
-   }
- });
+// Validar el número de apoderado
+const numeroApoderadoInput = document.getElementById('num_apoderado');
+numeroApoderadoInput.addEventListener('input', function () {
+  const valor = this.value;
+  // Solo permite 9 dígitos y que el primero sea 9
+  if (!/^9\d{0,8}$/.test(valor)) {
+    this.value = valor.slice(0, -1); // Elimina el último carácter
+  }
+});
 
- // Validar la fecha de nacimiento
- const fechaInput = document.getElementById('fecha_nacimiento');
- fechaInput.min = '2022-01-01'; // Establecer la fecha mínima
- fechaInput.max = '2023-12-31'; // Establecer la fecha máxima
+// Validar la fecha de nacimiento
+const fechaInput = document.getElementById('fecha_nacimiento');
+fechaInput.min = '2022-01-01'; // Establecer la fecha mínima
+fechaInput.max = '2023-12-31'; // Establecer la fecha máxima
 
- // Validación al enviar el formulario
- document.getElementById('addStudentForm').addEventListener('submit', function (event) {
-   let isValid = true;
+// Validación al enviar el formulario
+document.getElementById('addStudentForm').addEventListener('submit', function (event) {
+  let isValid = true;
 
-   // Validar el RUT
-   if (!/^\d{8}[0-9kK]$/.test(rutInput.value)) {
-     isValid = false;
-     alert('El RUT debe tener el formato correcto: 211410884 (sin puntos ni guiones).');
-   }
+  // Validar el RUT
+  if (!/^\d{8}[0-9kK]$/.test(rutInput.value)) {
+    isValid = false;
+    alert('El RUT debe tener el formato correcto: 211410884 (sin puntos ni guiones).');
+  }
 
-   // Validar el número de apoderado
-   if (!/^9\d{8}$/.test(numeroApoderadoInput.value)) {
-     isValid = false;
-     alert('El número de apoderado debe tener 9 dígitos y comenzar con 9.');
-   }
+  // Validar el número de apoderado
+  if (!/^9\d{8}$/.test(numeroApoderadoInput.value)) {
+    isValid = false;
+    alert('El número de apoderado debe tener 9 dígitos y comenzar con 9.');
+  }
 
-   // Cancelar el envío si hay errores
-   if (!isValid) {
-     event.preventDefault(); // Evitar el envío del formulario
-   }
- });
+  // Cancelar el envío si hay errores
+  if (!isValid) {
+    event.preventDefault(); // Evitar el envío del formulario
+  }
+});
+
+// Script para cargar los datos del estudiante en el modal de edición
+document.querySelectorAll('.edit-button').forEach(button => {
+  button.addEventListener('click', function () {
+    document.getElementById('edit_student_id').value = this.dataset.id;
+    document.getElementById('edit_rut').value = this.dataset.rut;
+    document.getElementById('edit_nombre').value = this.dataset.nombre;
+    document.getElementById('edit_fecha_nacimiento').value = this.dataset.fechaNacimiento;
+    document.getElementById('edit_direccion').value = this.dataset.direccion;
+    document.getElementById('edit_num_apoderado').value = this.dataset.numApoderado;
+
+  });
+});
+
+
+//para gráfico
+
+// Para asegurarse de que la tabla sea responsive y tenga capacidad de DataTables
+$(document).ready(function () {
+  $('#tablaNotas').DataTable({
+    responsive: true,
+    language: {
+      "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json" // Traducir a español
+    }
+  });
+});

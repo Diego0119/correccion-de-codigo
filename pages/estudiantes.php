@@ -103,7 +103,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary" name="submit">Guardar cambios</button>
+                <button type="submit" class="btn btn-primary" name="submit">Guardar</button>
               </div>
             </form>
           </div>
@@ -113,6 +113,69 @@
 
 
 
+    <!-- Modal para editar estudiante -->
+    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #007bff; color: white;">
+        <h5 class="modal-title" id="editStudentModalLabel"><i class="bi bi-pencil-square"></i> Editar Estudiante</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editStudentForm" method="post" action="editar.Estudiantes.php">
+          <input type="hidden" id="edit_student_id" name="student_id">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="edit_rut" class="form-label">Rut del estudiante</label>
+                <div class="form-text mb-2">Ejemplo: <strong>211410884</strong> (sin puntos ni guiones)</div>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                  <input type="text" class="form-control" id="edit_rut" name="rut" required maxlength="9">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="edit_nombre" class="form-label">Nombre completo</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-person"></i></span>
+                  <input type="text" class="form-control" id="edit_nombre" name="nombre" required maxlength="100">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="edit_fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                  <input type="date" class="form-control" id="edit_fecha_nacimiento" name="fecha_nacimiento" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="edit_direccion" class="form-label">Dirección</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                  <input type="text" class="form-control" id="edit_direccion" name="direccion" required maxlength="100">
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="edit_num_apoderado" class="form-label">Número de apoderado</label>
+                <div class="form-text mb-2">Ejemplo: <strong>912345678</strong> (9 dígitos, comienza con 9)</div>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                  <input type="text" class="form-control" id="edit_num_apoderado" name="num_apoderado" required maxlength="9">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary" name="submit">Guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
     <!-- Procesar el formulario con PHP -->
 
@@ -219,7 +282,9 @@
               // Acciones
               echo '<td>
             <center>
-              <span class="botones"><button type="button" class="btn btn-outline-dark" title="Editar"><i class="bi bi-pencil-square"></i></button></span>
+                             <button class="btn btn-warning btn-sm edit-button" data-bs-toggle="modal" data-bs-target="#editStudentModal" data-id="' . htmlspecialchars($idEstudiante) . '" data-rut="' . htmlspecialchars($rut) . '" data-nombre="' . htmlspecialchars($nombre) . '" data-fecha-nacimiento="' . htmlspecialchars($fechNac) . '" data-direccion="' . htmlspecialchars($direccion) . '" data-num-apoderado="' . htmlspecialchars($num) . '">
+                      Editar
+                    </button>
             </center>
           </td>';
               echo '</tr>';

@@ -4,7 +4,7 @@ if (!isset($_SESSION['nombre'])) {
     header("Location: /Notas/index.php");
     exit();
 }
-$idUsuario = $_SESSION['idUsuario']; 
+$idUsuario = $_SESSION['idUsuario'];
 $nombreUsuario = $_SESSION['nombre'];
 $tipoUsuario = $_SESSION['tipo'];
 ?>
@@ -29,6 +29,7 @@ $tipoUsuario = $_SESSION['tipo'];
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
     <link href="/Notas/css/style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 <!-- FIN head Exp1 -->
@@ -43,16 +44,7 @@ $tipoUsuario = $_SESSION['tipo'];
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
-        <nav class="header-nav ms-auto">
-            <ul class="d-flex align-items-center">
-                <li class="nav-item dropdown pe-3">
-                    <a class="dropdown-item d-flex align-items-center" href="/Notas/pages/logout.php">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>Sign Out</span>
-                    </a>
-                </li><!-- End Profile Nav -->
-            </ul>
-        </nav>
+
     </header>
     <!-- End Header Exp2 -->
 
@@ -65,6 +57,7 @@ $tipoUsuario = $_SESSION['tipo'];
                                             ?> </h6>
             </div>
             <hr>
+
             <?php if ($tipoUsuario == "admin"): ?>
                 <a class="nav-link collapsed" href="/Notas/pages/estudiantes.php">
                     <i class="bi bi-people-fill"></i>
@@ -82,6 +75,12 @@ $tipoUsuario = $_SESSION['tipo'];
                 </a>
             <?php endif; ?>
 
+           
+            <a class=" nav-link collapsed" href="/Notas/pages/logout.php">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Cerrar sesión</span>
+            </a>
+          
         </ul>
     </aside>
     <!-- FIN Sidebar Exp3-->

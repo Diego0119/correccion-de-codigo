@@ -1,40 +1,6 @@
 <?php
 session_start(); // Iniciar la sesión
-
-// Función para leer el archivo correcto según el tipo de usuario
-function obtenerArchivoPorTipo($tipo) {
-    switch ($tipo) {
-        case 'estudiante':
-            return '../doc/estudiantes.txt';
-        case 'docente':
-            return '../doc/docentes.txt';
-        case 'admin':
-            return '../doc/admins.txt';
-        default:
-            return null;
-    }
-}
-
-// Validar las credenciales del usuario y recuperar el ID y el nombre
-function validarUsuario($user, $password, $archivo, &$idUsuario, &$nombre) {
-    if (file_exists($archivo)) {
-        $file = fopen($archivo, "r");
-        while (($line = fgets($file)) !== false) {
-            // Separar la línea en campos
-            list($id, $rut, $name, $fecha_nacimiento, $direccion, $celular, $usuario, $contraseña) = explode("|", trim($line));
-
-            // Validar si el usuario y la contraseña son correctos
-            if ($usuario === $user && $contraseña === $password) {
-                $idUsuario = $id;  // Asignar el ID del usuario
-                $nombre = $name;  // Asignar el nombre del usuario
-                fclose($file);
-                return true;
-            }
-        }
-        fclose($file);
-    }
-    return false;
-}
+include '../functions/functions.php';
 
 // Obtener los datos del formulario
 $user = $_POST['user'];
