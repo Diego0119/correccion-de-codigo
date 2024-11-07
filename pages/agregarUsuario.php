@@ -22,6 +22,12 @@ if (isset($_POST['submit'])) {
     $numApoderado = $_POST['num_apoderado'];
     $materiasSeleccionadas = $_POST['docentes']; // Materias seleccionadas (IDs de los docentes)
 
+    if ($materiasSeleccionadas == null) {
+
+        $_SESSION['error_message'] = "Debes inscribir materias para el alumno.";
+        header("Location: estudiantes.php"); //Redirigir 
+        exit();
+    }
 
     // Generar el usuario
     $usuario = generarUsuario($nombre, $rut);

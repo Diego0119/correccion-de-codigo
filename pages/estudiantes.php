@@ -4,12 +4,15 @@
   <section class="section dashboard">
     <div class="d-flex justify-content-between align-items-center">
       <h2 class="mb-0">Listado de estudiantes inscritos</h2>
-      <button type="button" class="btn btn-outline-primary ms-2" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+      <button type="button" class="btn btn-outline-primary ms-2" data-bs-toggle="modal"
+        data-bs-target="#addStudentModal">
         Agregar estudiante
       </button>
     </div>
-    <div class="alert alert-primary nopadding mt-2 mb-3" role="alert"><i class="bi bi-gear-fill">Gestión de estudiantes</i></div>
-    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="alert alert-primary nopadding mt-2 mb-3" role="alert"><i class="bi bi-gear-fill">Gestión de
+        estudiantes</i></div>
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog modal-lg"> <!-- Hacer el modal más grande con modal-lg -->
         <div class="modal-content">
           <div class="modal-header" style="background-color: #007bff; color: white;">
@@ -58,7 +61,8 @@
                     <div class="form-text mb-2">Ejemplo: <strong>912345678</strong> (9 dígitos, comienza con 9)</div>
                     <div class="input-group">
                       <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                      <input type="text" class="form-control" id="num_apoderado" name="num_apoderado" required maxlength="9">
+                      <input type="text" class="form-control" id="num_apoderado" name="num_apoderado" required
+                        maxlength="9">
                     </div>
                   </div>
                   <div class="mb-3">
@@ -93,7 +97,7 @@
                       }
 
                       echo '</div>'; // Cerrar la última columna
-
+                      
                       fclose($archivo_docentes); // Cerrar el archivo
                       ?>
                     </div>
@@ -114,68 +118,73 @@
 
 
     <!-- Modal para editar estudiante -->
-    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: #007bff; color: white;">
-        <h5 class="modal-title" id="editStudentModalLabel"><i class="bi bi-pencil-square"></i> Editar Estudiante</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="editStudentForm" method="post" action="editar.Estudiantes.php">
-          <input type="hidden" id="edit_student_id" name="student_id">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="mb-3">
-                <label for="edit_rut" class="form-label">Rut del estudiante</label>
-                <div class="form-text mb-2">Ejemplo: <strong>211410884</strong> (sin puntos ni guiones)</div>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-card-text"></i></span>
-                  <input type="text" class="form-control" id="edit_rut" name="rut" required maxlength="9">
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="edit_nombre" class="form-label">Nombre completo</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-person"></i></span>
-                  <input type="text" class="form-control" id="edit_nombre" name="nombre" required maxlength="100">
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="edit_fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                  <input type="date" class="form-control" id="edit_fecha_nacimiento" name="fecha_nacimiento" required>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="mb-3">
-                <label for="edit_direccion" class="form-label">Dirección</label>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
-                  <input type="text" class="form-control" id="edit_direccion" name="direccion" required maxlength="100">
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="edit_num_apoderado" class="form-label">Número de apoderado</label>
-                <div class="form-text mb-2">Ejemplo: <strong>912345678</strong> (9 dígitos, comienza con 9)</div>
-                <div class="input-group">
-                  <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                  <input type="text" class="form-control" id="edit_num_apoderado" name="num_apoderado" required maxlength="9">
-                </div>
-              </div>
-            </div>
+    <div class="modal fade" id="editStudentModal" tabindex="-1" aria-labelledby="editStudentModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #007bff; color: white;">
+            <h5 class="modal-title" id="editStudentModalLabel"><i class="bi bi-pencil-square"></i> Editar Estudiante
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary" name="submit">Guardar cambios</button>
+          <div class="modal-body">
+            <form id="editStudentForm" method="post" action="editar.Estudiantes.php">
+              <input type="hidden" id="edit_student_id" name="student_id">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="edit_rut" class="form-label">Rut del estudiante</label>
+                    <div class="form-text mb-2">Ejemplo: <strong>211410884</strong> (sin puntos ni guiones)</div>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                      <input type="text" class="form-control" id="edit_rut" name="rut" required maxlength="9">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="edit_nombre" class="form-label">Nombre completo</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-person"></i></span>
+                      <input type="text" class="form-control" id="edit_nombre" name="nombre" required maxlength="100">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="edit_fecha_nacimiento" class="form-label">Fecha de nacimiento</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                      <input type="date" class="form-control" id="edit_fecha_nacimiento" name="fecha_nacimiento"
+                        required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="edit_direccion" class="form-label">Dirección</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                      <input type="text" class="form-control" id="edit_direccion" name="direccion" required
+                        maxlength="100">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="edit_num_apoderado" class="form-label">Número de apoderado</label>
+                    <div class="form-text mb-2">Ejemplo: <strong>912345678</strong> (9 dígitos, comienza con 9)</div>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                      <input type="text" class="form-control" id="edit_num_apoderado" name="num_apoderado" required
+                        maxlength="9">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" name="submit">Guardar cambios</button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
     <!-- Procesar el formulario con PHP -->
 
@@ -187,6 +196,14 @@
         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>';
       unset($_SESSION['message']); // Limpiar el mensaje de la sesión
+    }
+
+    if (isset($_SESSION['error_message']) && !empty($_SESSION['error_message'])) {
+      echo '<div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">'
+        . htmlspecialchars($_SESSION['error_message']) .
+        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+      unset($_SESSION['error_message']); // Limpiar el mensaje de la sesión
     }
     ?>
 
@@ -207,7 +224,7 @@
         // Leer el archivo estudiantes.txt
         $filenameEstudiantes = '../doc/estudiantes.txt';
         $filenameNotas = '../doc/notas.txt'; // Archivo de notas para obtener las materias
-
+        
         if (file_exists($filenameEstudiantes)) {
           $fileEstudiantes = fopen($filenameEstudiantes, 'r');
 
@@ -239,7 +256,7 @@
                   // Verificar si el ID del estudiante coincide con el del archivo de notas
                   if (count($dataNota) >= 6 && trim($dataNota[1]) == $idEstudiante) {
                     $idDocente = trim($dataNota[5]); // ID del docente que dicta la materia
-
+        
                     // Buscar el nombre de la materia en el archivo de docentes.txt
                     $filenameDocentes = '../doc/docentes.txt';
                     if (file_exists($filenameDocentes)) {
