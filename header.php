@@ -10,7 +10,7 @@ $tipoUsuario = $_SESSION['tipo'];
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <!-- INICIO head Exp1 -->
 
