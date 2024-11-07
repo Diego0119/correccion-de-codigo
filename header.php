@@ -22,12 +22,15 @@ $tipoUsuario = $_SESSION['tipo'];
     <meta content="" name="keywords">
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
     <!-- CSS -->
     <link href="/Notas/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/Notas/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css">
     <link href="/Notas/css/style.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -54,7 +57,7 @@ $tipoUsuario = $_SESSION['tipo'];
             <div class="text-center">
                 <h5 class="text-center fw-bold">Bienvenid@</h5>
                 <h6 class="text-center"> <?php echo $nombreUsuario; // Mostrar el nombre del usuario 
-                                            ?> </h6>
+                ?> </h6>
             </div>
             <hr>
 
@@ -75,12 +78,12 @@ $tipoUsuario = $_SESSION['tipo'];
                 </a>
             <?php endif; ?>
 
-           
+
             <a class=" nav-link collapsed" href="/Notas/pages/logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Cerrar sesión</span>
             </a>
-          
+
         </ul>
     </aside>
     <!-- FIN Sidebar Exp3-->
