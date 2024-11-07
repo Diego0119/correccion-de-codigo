@@ -240,7 +240,7 @@ numeroApoderadoInput.addEventListener('input', function () {
 
 // Validar la fecha de nacimiento
 const fechaInput = document.getElementById('fecha_nacimiento');
-fechaInput.min = '2022-01-01'; // Establecer la fecha mínima
+fechaInput.min = '2000-01-01'; // Establecer la fecha mínima
 fechaInput.max = '2023-12-31'; // Establecer la fecha máxima
 
 // Validación al enviar el formulario
